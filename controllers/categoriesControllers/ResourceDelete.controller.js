@@ -8,13 +8,13 @@ const resourceDeleteController = async function (req, res, next) {
 
   try {
     const currentCategoryResource = await Category.findOne({ _id: categoryId });
-    currentCategoryResource.resources = currentCategoryResource.resources.map(
-      el => {
-        if (el !== resourceId) {
+    currentCategoryResource.resources =
+      currentCategoryResource.resources.filter(el => {
+        if (el._id.toString().includes(resourceId) === false) {
           return el;
         }
-      }
-    );
+      });
+
     await currentCategoryResource.save();
 
     const resource = await Resource.findOne({ _id: resourceId });
@@ -25,7 +25,7 @@ const resourceDeleteController = async function (req, res, next) {
     await Resource.findByIdAndDelete({ _id: resourceId });
 
     res.json({
-      result: "Ok",
+      result: "OK",
     });
   } catch (error) {
     error.name = "MongooseError";

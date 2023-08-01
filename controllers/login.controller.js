@@ -37,13 +37,13 @@ const login = async function (req, res, next) {
   try {
     const userCount = await User.countDocuments();
     const authenticatedUser = await getAuth().verifyIdToken(idToken);
-    const user = await User.find({ email: authenticatedUser.email }).exec();
+    const user = await User.findOne({ email: authenticatedUser.email });
 
     if (authenticatedUser.email !== email) {
       throw new Error("Unauthorized");
     }
 
-    if (!user.length) {
+    if (!user) {
       new User({
         email: authenticatedUser.email,
         name: authenticatedUser.name,
@@ -56,7 +56,7 @@ const login = async function (req, res, next) {
         result: "OK",
         isInitialUser: true,
         isUser: true,
-        isAdmin: user.length ? user[0].isAdmin : true,
+        isAdmin: user ? user.isAdmin : true,
       });
 
       return;
@@ -65,7 +65,7 @@ const login = async function (req, res, next) {
     res.json({
       result: "OK",
       isUser: true,
-      isAdmin: user.length ? user[0].isAdmin : true,
+      isAdmin: user ? user.isAdmin : true,
     });
   } catch (error) {
     if (error.message === "Unauthorized") {
