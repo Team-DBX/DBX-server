@@ -25,8 +25,9 @@ admin.initializeApp({
 const login = async function (req, res, next) {
   const idToken = req.body.idToken;
   const email = req.body.email;
+  const isLogin = req.body.login;
 
-  if (!idToken || !email) {
+  if (!idToken) {
     res.status(400).json({
       result: "Error",
       message: "Both idToken and email are required",
@@ -43,7 +44,7 @@ const login = async function (req, res, next) {
       throw new Error("Unauthorized");
     }
 
-    if (!user) {
+    if (!user && isLogin) {
       new User({
         email: authenticatedUser.email,
         name: authenticatedUser.name,
@@ -51,7 +52,7 @@ const login = async function (req, res, next) {
       }).save();
     }
 
-    if (!userCount) {
+    if (!userCount && isLogin) {
       res.json({
         result: "OK",
         isInitialUser: true,
@@ -64,6 +65,7 @@ const login = async function (req, res, next) {
 
     res.json({
       result: "OK",
+      isInitialUser: false,
       isUser: true,
       isAdmin: user ? user.isAdmin : true,
     });
