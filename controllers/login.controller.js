@@ -27,19 +27,7 @@ const login = async function (req, res, next) {
     const authenticatedUser = await getAuth().verifyIdToken(idToken);
     const user = await User.findOne({ email: authenticatedUser.email });
 
-    if (authenticatedUser.email !== email) {
-      throw new Error("Unauthorized");
-    }
-
-    if (!user && isLogin) {
-      new User({
-        email: authenticatedUser.email,
-        name: authenticatedUser.name,
-        isAdmin: true,
-      }).save();
-    }
-
-    if (!userCount && isLogin) {
+    if (userCount && user) {
       res.json({
         result: "OK",
         isInitialUser: true,
@@ -48,6 +36,18 @@ const login = async function (req, res, next) {
       });
 
       return;
+    }
+
+    if (!user && isLogin) {
+      await new User({
+        email: authenticatedUser.email,
+        name: authenticatedUser.name,
+        isAdmin: true,
+      }).save();
+    }
+
+    if (authenticatedUser.email !== email) {
+      throw new Error("Unauthorized");
     }
 
     res.json({
