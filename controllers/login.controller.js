@@ -27,7 +27,13 @@ const login = async function (req, res, next) {
     const authenticatedUser = await getAuth().verifyIdToken(idToken);
     const user = await User.findOne({ email: authenticatedUser.email });
 
-    if (userCount && user) {
+    if (!userCount && !user) {
+      await new User({
+        email: authenticatedUser.email,
+        name: authenticatedUser.name,
+        isAdmin: true,
+      }).save();
+
       res.json({
         result: "OK",
         isInitialUser: true,

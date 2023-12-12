@@ -19,6 +19,10 @@ const newResourceVersion = async function (req, res, next) {
       throw new Error("ResourceVersions Exists");
     }
 
+    if (!user) {
+      throw new Error("Unauthorized user");
+    }
+
     const newResourceVersion = await new ResourceVersion({
       categoryId: data.categoryId,
       name: resource.name,
