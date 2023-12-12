@@ -8,6 +8,7 @@ const cors = require("cors");
 const url = process.env.DB_URL;
 const allowedOriginUrl = process.env.ALLOWED_ORIGIN;
 
+const index = require("./routes/index");
 const login = require("./routes/login");
 const initialSetting = require("./routes/initialSetting");
 const categories = require("./routes/categories");
@@ -26,6 +27,7 @@ app.use(cors(corsOptions));
 
 mongoose.connect(url);
 
+app.use("/", index);
 app.use("/initialSetting", initialSetting);
 app.use("/login", login);
 app.use("/categories", categories);
