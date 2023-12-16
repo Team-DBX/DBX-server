@@ -21,6 +21,7 @@ const resourceController = async function (req, res, next) {
       files,
     };
 
+    res.setHeader("Cache-Control", "public, max-age=3600");
     res.statusCode = 200;
     res.json(response);
   } catch (error) {

@@ -24,6 +24,7 @@ const categoryResourceListController = async function (req, res, next) {
       }
     });
 
+    res.setHeader("Cache-Control", "public, max-age=3600");
     res.statusCode = 200;
     res.json({ categoryList: responseData });
   } catch (error) {
