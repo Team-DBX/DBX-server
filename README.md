@@ -1,5 +1,5 @@
 <div style="display: flex; justify-content: center;">
-  <img style="width: 500px; " alt="DBX Logo" src="https://github-production-user-asset-6210df.s3.amazonaws.com/93499071/294215658-1adba02c-75d4-4513-bf7c-ffe8ffc928b8.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240104%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240104T145839Z&X-Amz-Expires=300&X-Amz-Signature=143691b582c34bf3ba0d4fa1dd881689144a956a5806483fdacc1bad06f5b5d3&X-Amz-SignedHeaders=host&actor_id=93499071&key_id=0&repo_id=668286544">
+  <img style="width: 500px; " alt="DBX Logo" src="https://github.com/Team-DBX/DBX-client/assets/93499071/1adba02c-75d4-4513-bf7c-ffe8ffc928b8">
 </div>
 <div style="text-align: center;">Developer와 Designer가 협업할 수 있는 Brand Experience <strong>리소스 관리 툴</strong> DBX입니다.</div>
 <br />
